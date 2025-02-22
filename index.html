@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+    <title>Image Slideshow</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+        #slideshow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 500px;
+        }
+        #slideshow img {
+            width: 400px;
+            height: 400px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="slideshow">
+        <img src="1.jpg" class="slide" style="display:block;">
+        <img src="2.jpg" class="slide">
+        <img src="3.jpg" class="slide">
+        <img src="4.jpg" class="slide">
+        <img src="5.jpg" class="slide">
+    </div>
+    <br>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+
+    <script>
+        let slideIndex = 0;
+        let slides = $(".slide");
+        let interval;
+
+        function showNextSlide() {
+            slides.eq(slideIndex).fadeOut(1000, function() {
+                slideIndex = (slideIndex + 1) % slides.length;
+                slides.eq(slideIndex).fadeIn(1000);
+            });
+        }
+
+        $("#start").click(function() {
+            if (!interval) {
+                interval = setInterval(showNextSlide, 3000);
+            }
+        });
+
+        $("#stop").click(function() {
+            clearInterval(interval);
+            interval = null;
+        });
+    </script>
+</body>
+</html>
